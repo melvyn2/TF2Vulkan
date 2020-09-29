@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Macros.h"
+
 #include <initializer_list>
 #include <utility>
 
@@ -7,13 +9,13 @@ namespace Util
 {
 	using std::as_const;
 	template<typename T>
-	constexpr __forceinline std::add_const_t<T>* as_const(T* t) noexcept
+	constexpr FORCEINLINE_TEMPLATE std::add_const_t<T>* as_const(T* t) noexcept
 	{
 		return t;
 	}
 
 	template<typename T>
-	[[nodiscard]] __forceinline size_t hash_value(const T& value)
+	[[nodiscard]] FORCEINLINE_TEMPLATE size_t hash_value(const T& value)
 	{
 		return std::hash<T>{}(value);
 	}
@@ -31,7 +33,7 @@ namespace Util
 		return retVal;
 	}
 
-	[[nodiscard]] __forceinline size_t hash_combine(const std::initializer_list<size_t>& hashes)
+	[[nodiscard]] FORCEINLINE_TEMPLATE size_t hash_combine(const std::initializer_list<size_t>& hashes)
 	{
 		return ::Util::hash_combine_range(hashes.begin(), hashes.end());
 	}
@@ -48,18 +50,18 @@ namespace Util
 	}
 
 	template<typename T, size_t size>
-	[[nodiscard]] __forceinline size_t hash_value(const T(&value)[size])
+	[[nodiscard]] FORCEINLINE_TEMPLATE size_t hash_value(const T(&value)[size])
 	{
 		return ::Util::hash_range(std::begin(value), std::end(value));
 	}
 
 	template<typename TOnly>
-	[[nodiscard]] __forceinline size_t hash_multi(const TOnly& only)
+	[[nodiscard]] FORCEINLINE_TEMPLATE size_t hash_multi(const TOnly& only)
 	{
 		return ::Util::hash_value(only);
 	}
 	template<typename TFirst, typename... TExtra>
-	[[nodiscard]] __forceinline size_t hash_multi(const TFirst& first, const TExtra& ... args)
+	[[nodiscard]] FORCEINLINE_TEMPLATE size_t hash_multi(const TFirst& first, const TExtra& ... args)
 	{
 		return ::Util::hash_combine({ ::Util::hash_value(first), ::Util::hash_value(args)... });
 	}

@@ -2,11 +2,12 @@
 
 #include <cstddef>
 #include <type_traits>
+#include <tier0/platform.h>
 
 namespace Util
 {
 	template<typename T, typename TOffset, typename = std::enable_if_t<std::is_integral_v<TOffset>>>
-	__forceinline T* OffsetPtr(T* base, TOffset offset)
+	FORCEINLINE_TEMPLATE T* OffsetPtr(T* base, TOffset offset)
 	{
 		if (!base)
 			return base;

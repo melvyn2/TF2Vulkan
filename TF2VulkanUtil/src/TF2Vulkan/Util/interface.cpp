@@ -3,7 +3,11 @@
 #undef _PREFAST_
 #undef RTL_NUMBER_OF_V2
 
+#ifdef WIN32
 #include <Windows.h>
+#else
+#include <dlfcn.h>
+#endif
 
 CSysModule* Util::FindModule(const char* moduleName)
 {
@@ -12,8 +16,12 @@ CSysModule* Util::FindModule(const char* moduleName)
 		assert(false);
 		return nullptr;
 	}
-
+#ifdef WIN32
 	return (CSysModule*)GetModuleHandleA(moduleName);
+#else
+	printf("Trying to dlopen %s", moduleName);
+    return (CSysModule*)dlopen(moduleName, RTLD_LAZY);
+#endif
 }
 
 #ifdef CUSTOM_CREATEINTERFACE_FN
@@ -51,5 +59,5 @@ void* Util::FindProcAddressRaw(CSysModule* module, const char* symbolName)
 	if (!module)
 		return nullptr;
 
-	return GetProcAddress((HMODULE)module, symbolName);
+	return GetProcAddress((void *)module, symbolName);
 }

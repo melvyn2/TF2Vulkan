@@ -73,13 +73,13 @@ namespace Util
 		if (!factory)
 		{
 			assert(factory);
-			Error("[TF2Vulkan] " __FUNCTION__ "(): Factory was null");
+			Error("[TF2Vulkan] " + __FUNCTION__ + "(): Factory was null");
 		}
 
 		if (!(interfacePtr = (T*)factory(interfaceName, nullptr)))
 		{
 			assert(interfacePtr);
-			Error("[TF2Vulkan] " __FUNCTION__ "(): Failed to connect to %s", interfaceName);
+			Error("[TF2Vulkan] " + __FUNCTION__ + "(): Failed to connect to %s", interfaceName);
 		}
 	}
 

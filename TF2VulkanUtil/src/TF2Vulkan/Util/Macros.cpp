@@ -7,7 +7,11 @@
 #pragma push_macro("_PREFAST_")
 #undef RTL_NUMBER_OF_V2
 #undef _PREFAST_
+#ifdef WIN32
 #include <Windows.h>
+#else
+#include <iostream>
+#endif
 #pragma pop_macro("RTL_NUMBER_OF_V2")
 #pragma pop_macro("_PREFAST_")
 
@@ -51,7 +55,7 @@ void Util::EnsureConditionFailed(const char* condition, const char* fnSig, const
 	Warning(fmtStr, condition, fnSig, file, line);
 
 	if (Plat_IsInDebugSession())
-		__debugbreak();
+		DEBUG_BREAK
 
 	Error(fmtStr, condition, fnSig, file, line);
 }
@@ -89,9 +93,13 @@ void Util::LogFunctionCall(const std::string_view& fnSig, const std::string_view
 	const FnSigComponents comps(fnSig);
 
 	char buf[512];
-	sprintf_s(buf, "[TF2Vulkan] -> %.*s%.*s%s%.*s\n",
+	sprintf(buf, "[TF2Vulkan] -> %.*s%.*s%s%.*s\n",
 		s_LogFunctionCallIndentation, LOG_FN_INDENT_CHARS,
 		PRINTF_SV(fnSig), msg.empty() ? "" : ": ", PRINTF_SV(msg));
 
+#ifdef COMPILER_MSVC
 	OutputDebugStringA(buf);
+#else
+	std::cerr << buf;
+#endif
 }

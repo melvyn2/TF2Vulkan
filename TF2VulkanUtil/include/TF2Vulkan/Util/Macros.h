@@ -8,8 +8,11 @@
 
 #include <tier0/basetypes.h>
 
+#ifdef COMPILER_MSVC
 #define ENSURE(condition) { if (!(condition)) ::Util::EnsureConditionFailed(V_STRINGIFY(#condition), __FUNCSIG__, __FILE__, __LINE__); }
-
+#else
+#define ENSURE(condition) { if (!(condition)) ::Util::EnsureConditionFailed(V_STRINGIFY(#condition), __func__, __FILE__, __LINE__); }
+#endif
 #define ASSERT_MAIN_THREAD() ENSURE(::Util::IsMainThread())
 
 namespace Util
@@ -70,6 +73,16 @@ namespace Util
 
 #define PRINTF_SV(stringView) Util::SafeConvert<int>((stringView).size()), (stringView).data()
 static constexpr const char* PRINTF_BOOL(bool val) { return val ? "true" : "false"; }
+
+#if __has_builtin(__builtin_debugtrap)
+#define DEBUG_BREAK __builtin_debugtrap();
+#elif POSIX
+#define DEBUG_BREAK std::raise(SIGTRAP);
+#elif COMPILER_MSVC
+#define DEBUG_BREAK __debugbreak();
+#else
+#define DEBUG_BREAK
+#endif
 
 #ifdef MATT_HAYNIE
 #define NOT_IMPLEMENTED_FUNC() \

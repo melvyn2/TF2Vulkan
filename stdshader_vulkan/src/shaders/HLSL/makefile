@@ -16,14 +16,14 @@ TEXTURE_OFFSET:=0 #200
 # COMPILER_ARGS_TARGET:= -o
 
 # glslangValidator
-SHADER_COMPILER:=glslangValidator.exe
+SHADER_COMPILER:=glslangValidator
 COMPILER_ARGS:= -fhlsl_functionality1 --shift-sampler-binding $(SAMPLER_OFFSET) --shift-texture-binding $(TEXTURE_OFFSET) --invert-y -V -e main
 COMPILER_ARGS_VERT:=
 COMPILER_ARGS_FRAG:=
 COMPILER_ARGS_TARGET:= -o
 
-SPIRV_VAL:=spirv-val.exe
-SPIRV_DIS:=spirv-dis.exe
+SPIRV_VAL:=spirv-val
+SPIRV_DIS:=spirv-dis
 
 SOURCE_DIR:=
 TARGET_DIR:=../Generated/

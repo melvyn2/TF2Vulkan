@@ -39,7 +39,7 @@ namespace Util
 			else if constexpr (std::is_convertible_v<T, std::weak_equality>)
 				return std::weak_equality::equivalent;
 			else
-				static_assert(false, "Invalid type");
+				static_assert(true, "Invalid type");
 		}
 
 		template<typename T> constexpr bool is_ordering_impl()
