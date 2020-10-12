@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shaders/ShaderParamNext.h"
+#include "../ShaderParamNext.h"
 
 #include "TF2Vulkan/ISpecConstLayout.h"
 #include "TF2Vulkan/ShaderResourceBinder.h"

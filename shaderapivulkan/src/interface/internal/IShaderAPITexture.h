@@ -3,6 +3,8 @@
 #include <materialsystem/itexture.h>
 #include <shaderapi/ishaderdynamic.h>
 
+#include <string_view>
+
 namespace TF2Vulkan
 {
 	// FIXME: Is it safe to assume nobody will try to cast this to ITextureInternal or something?

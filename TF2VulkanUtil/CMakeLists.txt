@@ -1,5 +1,4 @@
 project(tf2vulkanutil)
-set(CMAKE_CXX_STANDARD 20)
 
 add_library(tf2vulkanutil STATIC)
 

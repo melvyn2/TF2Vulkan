@@ -1,5 +1,8 @@
+#include <vulkan/vulkan.hpp>
+
+#include <TF2Vulkan/util/SafeConvert.h>
 #include "IShaderAPITexture.h"
-#include "TF2Vulkan/FormatInfo.h"
+#include "../../TF2Vulkan/FormatInfo.h"
 
 using namespace TF2Vulkan;
 
